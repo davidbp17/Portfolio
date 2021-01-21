@@ -1,0 +1,1 @@
+Board Scripting Language is an scripting language that works with C# GUI's and HID Devices. The intent is to allow programming of reads and writes to a board within the user interface. Though this language is fully functional, this repository can not be run without being attached to its own GUI that communicates with an HID Device.
