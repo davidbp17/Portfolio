@@ -1,0 +1,6 @@
+#side = 15
+penDown
+repeat 4
+	move #side
+	turn 90
+end
