@@ -57,6 +57,9 @@ Overall the code works very well, when attached to C# GUI using WPF as I did for
 
 ### Big Data Analysis on Census Housing Data in California
 
+
+[View the Entire Notebook](./CA-Housing-Data/CA Housing Data Project.ipynb).
+
 This project takes a look at housing data from the 1990 Census and using visualization and regression models with GeoPlot and PySpark, can calculate what factors most into median housing prices absent of typical data such as acreage, condition, and proximity to cities/schools/parks. The census data consisted of median age of the buildings, number of rooms, number of bedrooms, population, households, median income, median house value and ocean proximity of a given block in CA, there are over 20433 valid data points in this set. What this project ended up showing that median income is the most influential aspect of median house value, followed by ocean proximity and median house age. The other catagories did have small effects on the prices but overall their effect was nearly negligible. The visual data shows how the median income and ocean proximity are often related, but there are also some outliers and thats why ocean proximity alone is not a good indicator.
 
 There are no special instructions to run this notebook
