@@ -500,7 +500,7 @@ Analysis of the results shows that the CNN model was better when it came to reco
 
 ![png](./Speech-Digit-Recognition-Neural-Networks/results.png)
 
-[Rest of the code can be viewed here](./Speech-Digit-Recognition-Neural-Networks
+[Rest of the code can be viewed here](./Speech-Digit-Recognition-Neural-Networks)
 
 
 
