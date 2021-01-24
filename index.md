@@ -443,6 +443,64 @@ print("Mean Absolute Error Test = %g" % mae)
 
 This project is an extension of the classical digit recognition problem for speech processing. The goal is to train a neural network to recognized trimmed strings of digits from an audio file. In order to achieve this, I have created a Convolutional Neural Network and Long Short Term Memory Network to train on the spectograms of single spoken work audio files. The motivation for this approach was to create a neural network that took into account how spectral features evolve over time as the network categorized digits. Since the audio spectrograms can be treated like a black and white image, and a CNN is an optimal network to solve categorization problems with images. The idea behind the LSTM network is that it might be better at picking up poorly trimmed spectrograms when reading multi digit files than the CNN. Since the LSTM is input with each spectral frame one at a time there is a consistent flow of time that can be used to identify certain features in the spectrogram. So to create a consistent spectrogram, the mel spectrogram of the individual spoken digits was calculated and then padded to about 50 frames or .5 sec.
 
+#### Spectrogram of the spoken digit three
 ![png](./Speech-Digit-Recognition-Neural-Networks/padded3.png)
 
 *Note the y-axis in the spectrogram is log frequency in Hz*
+
+Training of the networks was straightforward, the TIDIGITS audio archieve has folders split into testing and training data. The single digits files were sifted out and trained, both networks were able to be trained relatively quickly. The issues come when it comes to spliting multidigit files into multiple frames, using speech and silence untrained machine learning breaks down. The digits are commonly spoken so quickly that it becomes difficult to split, only slow spoken strings have good results. Ideally one would split the audio into phonemes, then stitch together the results back into words. The approach I use is to convert files into RMS Steams as opposed to the DFT Stream used for training. This allows better splitting of audio files, although far from perfect.
+
+One of the last parts of this project was working on calculating what the Word Error Rate (WER) was for multi digit results. In order to calculate the accuracy of two different sized sets, the predictions and actual set of results. In order to calculate WER, the number of substitutions,deletions and insertions needs to be calculated. Therefore the Levenshtein distance (the total of substitutions,deletions and insertions) needs to be calculated, that was dynamically programmed into the project with a custom Keras metrics. If you want to calculate the number of substitutions compared to insertions and deletions, you can use the longest common subsequence which has also been added in.
+
+```python
+def WER(y_true, y_pred):
+    #tensorflow code
+    if(len(y_pred.shape) > 1):
+        y_true = tf.argmax(y_true,axis = 1).numpy()
+        y_pred = tf.argmax(y_pred,axis = 1).numpy()
+    levDist = levenshteinDistance(y_true,y_pred)
+    return 1.0 - (levDist/len(y_true))
+
+def levenshteinDistance(arr1,arr2):
+
+#Code for the Levenshtein Distance
+#Adapted code for strings and used it for arrays
+    len1 = len(arr1)
+    len2 = len(arr2)
+    len_arr = np.zeros((len1+1,len2+1))
+    for x1 in range(len1 + 1):
+        len_arr[x1][0] = x1
+    for x2 in range(len2 + 1):
+        len_arr[0][x2] = x2
+    a = 0
+    b = 0
+    c = 0
+    
+    for x1 in range(1, len1 + 1):
+        for x2 in range(1, len2 + 1):
+            if (arr1[x1-1] == arr2[x2-1]):
+                len_arr[x1,x2] = len_arr[x1 - 1,x2 - 1]
+            else:
+                a = len_arr[x1,x2 - 1]
+                b = len_arr[x1 - 1,x2]
+                c = len_arr[x1 - 1,x2 - 1]
+                if (a <= b and a <= c):
+                    len_arr[x1,x2] = a + 1
+                elif (b <= a and b <= c):
+                    len_arr[x1,x2] = b + 1
+                else:
+                    len_arr[x1,x2] = c + 1
+    return len_arr[len1,len2]
+
+```
+
+Analysis of the results shows that the CNN model was better when it came to recognizing individual digits and well trimmed strings of digits. There is a notable increase in testing performance of both networks compared to performance on a feedforward network. However when it came to recognition on the entire strings of digits, the LSTM had notably outperformed the CNN. The reason would have to do with the poorly trimmed data, the LSTM might have been more accurate. The CNN trains on the padded spectrograms, so having more or less padding might affect the result in a way that gets ignored by the LSTM network due to the masking layer. If two digits are miscatagorized as one the LSTM is better at getting the final digit correct as the end data would have more weight.
+
+#### Network Results (Averaged over 3 runs)
+
+![png](./Speech-Digit-Recognition-Neural-Networks/results.png)
+
+[Rest of the code can be viewed here](./Speech-Digit-Recognition-Neural-Networks
+
+
+
