@@ -443,5 +443,6 @@ print("Mean Absolute Error Test = %g" % mae)
 
 This project is an extension of the classical digit recognition problem for speech processing. The goal is to train a neural network to recognized trimmed strings of digits from an audio file. In order to achieve this, I have created a Convolutional Neural Network and Long Short Term Memory Network to train on the spectograms of single spoken work audio files. The motivation for this approach was to create a neural network that took into account how spectral features evolve over time as the network categorized digits. Since the audio spectrograms can be treated like a black and white image, and a CNN is an optimal network to solve categorization problems with images. The idea behind the LSTM network is that it might be better at picking up poorly trimmed spectrograms when reading multi digit files than the CNN. Since the LSTM is input with each spectral frame one at a time there is a consistent flow of time that can be used to identify certain features in the spectrogram. So to create a consistent spectrogram, the mel spectrogram of the individual spoken digits was calculated and then padded to about 50 frames or .5 sec.
 
-![png](./Speech-Digit-Recognition-Neural-Network/padded3.png)
-*Note the Y Axis is the Spectrogram is log frequency in Hz*
+![png](./Speech-Digit-Recognition-Neural-Networks/padded3.png)
+
+*Note the y-axis in the spectrogram is log frequency in Hz*
