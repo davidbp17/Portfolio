@@ -1,4 +1,4 @@
-# Overview
+# Portfolio Overview
 
 This portfolio consists of some of the projects I have been working on in the past couple years through my graduate education. These projects deal with many important sectors of Computer Science such as Speech Processing, Big Data & Analysis, Design Patterns and Machine Learning. There are some projects that was greatly influenced from previous jobs where I did GUI development for devices. I believe that it is quite important that users have a understandable interface and be able to visualize important data, and incorporate that into my work. 
 
