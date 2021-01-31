@@ -32,7 +32,7 @@ else
 ```c
 int readVal = 0;
 bool loopControl = true;
-if(loopControl) else goto 10;
+if(loopControl) else goto 11;
 int reg = 4096;
 if(reg <= 4011) else goto 10;
 readVal = Read(reg);
